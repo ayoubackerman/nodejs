@@ -3,23 +3,26 @@ on: push
 
 jobs:
 
- sonarqube:
-  name: SonarQube Scan
-  runs-on: ubuntu-latet
-  steps:
-    - name: Checkout source code 
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: Setup Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: Install dependencies
-      uses: yarn install
+  sonarqube:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest  # Corrected 'ubuntu-latet' to 'ubuntu-latest'
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2  # Updated to latest version (v2)
+        with:
+          node-version: 12
+
+      - name: Install dependencies
+        run: yarn install  # Corrected to use 'run' instead of 'uses'
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v1  # Use the latest stable version instead of 'master'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
