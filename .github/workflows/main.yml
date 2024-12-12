@@ -5,7 +5,7 @@ jobs:
 
   sonarqube:
     name: SonarQube Scan
-    runs-on: ubuntu-latest  # Corrected 'ubuntu-latet' to 'ubuntu-latest'
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout source code
@@ -14,15 +14,15 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2  # Updated to latest version (v2)
+        uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: '16'  # Updated to Node.js version 16 or higher
 
       - name: Install dependencies
-        run: yarn install  # Corrected to use 'run' instead of 'uses'
+        run: yarn install
 
       - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v1  # Use the latest stable version instead of 'master'
+        uses: sonarsource/sonarqube-scan-action@v1
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
